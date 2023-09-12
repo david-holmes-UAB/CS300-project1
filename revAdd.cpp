@@ -6,7 +6,7 @@
 #define MAX_ITER 1000
 #define MAX_PALIN 4294967295
 
-int reverseNum(int &fwd);
+int reverseNum(int fwd);
 void rev_and_add(int &test);
 
 int main() {
@@ -23,6 +23,21 @@ int main() {
         testers.push_back(n);
     }
     
-
+    for(size_t j = 0; j < testers.size(); j++) {
+        std::cout << reverseNum(testers[j]) << "\n";
+    }
     
+}
+
+// Based on a formula found at https://medium.com/@ManBearPigCode/how-to-reverse-a-number-mathematically-97c556626ec6
+int reverseNum(int toRev) {
+    int temp = toRev;
+    int reversed = 0;
+
+    while (temp > 0) {
+        reversed = reversed * 10 + (temp % 10);
+        temp = temp / 10;
+    }
+
+    return reversed;
 }
