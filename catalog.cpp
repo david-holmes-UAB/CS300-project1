@@ -3,6 +3,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <limits>
 
 # define MAX_BOOKS 1000
 
@@ -43,14 +44,16 @@ int main() {
         std::cout << "Coming soon.";
         break;
     case 2:
-        std::cout << "Enter subject string (For example, 'Siblings--Fiction' or 'Science fiction'): \n";
+        std::cout << "Enter subject string (For example:\n";
+        std::cout << "'Siblings--Fiction', 'Politics and government', 'Boys--Fiction', 'Interpersonal relations--Fiction', or 'Science fiction'): \n";
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         getline(std::cin, usrInput);
         searchBySubject(libdata, usrInput);
         break;
 
     case 3:
         for (bookT book : libdata.books) {
-            std::cout << "Entry: \n>>" << book.title << ", by ";
+            std::cout << "Entry: \n>> " << book.title << ", by ";
             for (std::string author : book.authors) {
                 std::cout << author << " ";
             }  
@@ -141,8 +144,13 @@ libraryT initBooks() {
 
 void searchBySubject(libraryT &library, std::string &searcher) {
     std::cout << "Results found: \n";
-    for () {
-
+    for (bookT book : library.books) {
+        for (std::string heading : book.subHeadings) {
+            if (heading == searcher) {
+                std::cout << ">> " << book.title << " ; " << book.authors[0] << " ; " << book.catalogNum << "\n"; 
+            }
+        }
     }
+    std::cout << "Operation complete.\nIf you do not see results above this message, no results were found.\n";
 
 }
