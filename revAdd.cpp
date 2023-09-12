@@ -7,11 +7,11 @@
 #define MAX_PALIN 4294967295
 
 int reverseNum(int fwd);
-void rev_and_add(int &test);
+void rev_and_add(int test);
 
 int main() {
 
-    int cases;
+    int cases = 0;
     std::cout << "Enter the number of test cases, press enter, then enter cases line by line:\n";
     std::cin >> cases;
 
@@ -24,7 +24,7 @@ int main() {
     }
     
     for(size_t j = 0; j < testers.size(); j++) {
-        std::cout << reverseNum(testers[j]) << "\n";
+        rev_and_add(testers[j]);
     }
     
 }
@@ -35,9 +35,26 @@ int reverseNum(int toRev) {
     int reversed = 0;
 
     while (temp > 0) {
-        reversed = reversed * 10 + (temp % 10);
-        temp = temp / 10;
-    }
+        reversed = reversed * 10 + (temp % 10); // Isolate last digit by taking the remainder, then add it to the reversed number
+        temp = temp / 10; // Cut down the removed (reversed) place
+    } // iterate until number is reversed fully (should not be after hitting less than zero)
 
     return reversed;
+}
+
+void rev_and_add(int test) {
+    int iterations = 0; 
+    int pally = test; 
+
+    while (pally <= MAX_PALIN) {
+        if (pally != reverseNum(pally)) {
+            pally = pally + reverseNum(pally);
+            iterations++;
+        }
+        else {
+            break; // is there a better way to do this?
+        }
+    }
+
+    std::cout << iterations << " " << pally << "\n";
 }
