@@ -22,7 +22,6 @@ struct libraryT {
 };
 
 libraryT initBooks();
-bookT addBook();
 void searchBySubject(libraryT &library, std::string &searcher);
 
 int main() {
@@ -37,11 +36,54 @@ int main() {
     std::cin >> userChoice;
 
     std::string usrInput;
+    char yn;
+    bookT newBK; // for if user wants to make a new book
 
     switch (userChoice)
     {
     case 1:
-        std::cout << "Coming soon.";
+        std::cout << "Enter the title of the book: \n";
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        getline(std::cin, newBK.title);
+
+        std::cout << "Enter the author(s) of the book. Type 7787 when finished. : \n";
+        while (usrInput != "7787") {
+            getline(std::cin, usrInput);
+            newBK.authors.push_back(usrInput);
+        }
+        usrInput = "";
+
+        std::cout << "Enter the catalog number: \n";
+        std::cin >> newBK.catalogNum;
+
+        std::cout << "Enter subject headings. Type 7787 when finished. : \n";
+        while (usrInput != "7787") {
+            getline(std::cin, usrInput);
+            newBK.subHeadings.push_back(usrInput);
+        }
+        usrInput = "";
+
+        std::cout << "Enter the publisher: \n";
+        getline(std::cin, newBK.publisher);
+
+        std::cout << "Enter the year of publication: \n";
+        std::cin >> newBK.pubYear;
+
+        std::cout << "Is this book still in ciculation, Y/N?: \n";
+        std::cin >> yn;
+        if (yn == 'Y' || yn == 'y') {
+            newBK.isCirc = true;
+        }
+        else if (yn == 'N' || yn == 'n') {
+            newBK.isCirc = false;
+        }
+        else {
+            std::cout << "We'll call that a no.\n";
+            newBK.isCirc = false;
+        }
+
+        libdata.books.push_back(newBK);
+        std::cout << "The book '" << newBK.title << "' has been added.\n";
         break;
     case 2:
         std::cout << "Enter subject string (For example:\n";
