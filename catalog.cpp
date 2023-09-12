@@ -84,6 +84,8 @@ int main() {
 
         libdata.books.push_back(newBK);
         std::cout << "The book '" << newBK.title << "' has been added.\n";
+        std::cout << "Further details: \n";
+        std::cout << ">> Author: " << newBK.authors[0] << "\n>> Catalog #: " << newBK.catalogNum << "\n>> First subject: " << newBK.subHeadings[0] << "\n";
         break;
     case 2:
         std::cout << "Enter subject string (For example:\n";
