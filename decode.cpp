@@ -17,6 +17,13 @@ int main() {
     // Line for testing input recieved
     //std::cout << usrInput << " was typed.";
 
+    /*
+    * For debugging whitespace not being included in output string
+    for (char curr : usrInput) {
+        std::cout << curr << "\n";
+    }
+    */
+
     std::cout << "Output: " << decypher(usrInput);
 
 
@@ -26,17 +33,19 @@ int main() {
 std::string decypher(std::string &input) {
     std::string output = "";
     for (char curr : input) {
-        for (int i = 0; i < strlen(KEYBOARD); i++) {
-            if (curr != 'Q' && curr != 'A' && curr != 'Z') {
-                if (curr == KEYBOARD[i]) {
-                    output = output + KEYBOARD[i - 1];
+        if (curr == ' ') {
+            output = output + ' ';
+        }
+        else {
+            for (int i = 0; i < strlen(KEYBOARD); i++) {
+                if (curr != 'Q' && curr != 'A' && curr != 'Z') {
+                    if (curr == KEYBOARD[i]) {
+                        output = output + KEYBOARD[i - 1];
+                    }
                 }
-            }
-            else {
-                if (curr == ' ') {
-                    output = output + ' ';
+                else {
+                    output = output + curr;
                 }
-                output = output + curr;
             }
         }
     }
